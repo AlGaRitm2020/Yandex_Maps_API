@@ -44,18 +44,30 @@ class Main(QMainWindow, Ui_MainWindow):
         os.remove(self.map_file)
 
     # key pressed (PgUP and PgDown)
-    def keyPressEvent(self, e):
+    def keyPressEvent(self, event):
         # zoom in
-        if e.key() in [QtCore.Qt.Key_PageUp]:
+        if event.key() in [QtCore.Qt.Key_PageUp, QtCore.Qt.Key]:
             self.doubleSpinBox_scale.setValue(self.doubleSpinBox_scale.value() / 2)
             self.get_image()
 
+
         # zoom out
-        elif e.key() in [QtCore.Qt.Key_PageDown]:
+        elif event.key() in [QtCore.Qt.Key_PageDown]:
             self.doubleSpinBox_scale.setValue(self.doubleSpinBox_scale.value() * 2)
             self.get_image()
         else:
             super(QMainWindow, self).keyPressEvent(e)
+
+    # mouse wheel( up or down)
+    def wheelEvent(self, event):
+        # zoom in
+        if event.angleDelta().y() == 120:
+            self.doubleSpinBox_scale.setValue(self.doubleSpinBox_scale.value() / 2)
+            self.get_image()
+        # zoom out
+        else:
+            self.doubleSpinBox_scale.setValue(self.doubleSpinBox_scale.value() * 2)
+            self.get_image()
 
 
 if __name__ == '__main__':
