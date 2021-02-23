@@ -27,7 +27,7 @@ class Main(QMainWindow, Ui_MainWindow):
         self.doubleSpinBox_longitude.setSingleStep(self.doubleSpinBox_scale.value() / 10)
 
         map_request = f"http://static-maps.yandex.ru/1.x/?ll={self.doubleSpinBox_longitude.value()}," \
-                      f"{self.doubleSpinBox_latitude.value()}&spn={self.doubleSpinBox_scale.value()},{0.0001}&l=map"
+                      f"{self.doubleSpinBox_latitude.value()}&spn={self.doubleSpinBox_scale.value()},{0.0001}&l=map&size=650,450"
         # get response
         response = requests.get(map_request)
 

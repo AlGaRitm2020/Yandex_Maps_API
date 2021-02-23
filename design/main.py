@@ -14,14 +14,14 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 700)
+        MainWindow.resize(650, 700)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
-        MainWindow.setMinimumSize(QtCore.QSize(800, 700))
-        MainWindow.setMaximumSize(QtCore.QSize(800, 700))
+        MainWindow.setMinimumSize(QtCore.QSize(650, 700))
+        MainWindow.setMaximumSize(QtCore.QSize(650, 700))
         MainWindow.setMouseTracking(False)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("img/maps_icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -37,12 +37,12 @@ class Ui_MainWindow(object):
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
         self.formLayoutWidget = QtWidgets.QWidget(self.tab)
-        self.formLayoutWidget.setGeometry(QtCore.QRect(11, 490, 801, 131))
+        self.formLayoutWidget.setGeometry(QtCore.QRect(0, 490, 651, 131))
         self.formLayoutWidget.setObjectName("formLayoutWidget")
         self.formLayout = QtWidgets.QFormLayout(self.formLayoutWidget)
         self.formLayout.setLabelAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.formLayout.setFormAlignment(QtCore.Qt.AlignCenter)
-        self.formLayout.setContentsMargins(200, 20, 200, 0)
+        self.formLayout.setContentsMargins(100, 20, 100, 0)
         self.formLayout.setObjectName("formLayout")
         self.label_latitude = QtWidgets.QLabel(self.formLayoutWidget)
         self.label_latitude.setObjectName("label_latitude")
@@ -80,7 +80,7 @@ class Ui_MainWindow(object):
         self.doubleSpinBox_scale.setObjectName("doubleSpinBox_scale")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.doubleSpinBox_scale)
         self.image = QtWidgets.QLabel(self.tab)
-        self.image.setGeometry(QtCore.QRect(111, -10, 601, 451))
+        self.image.setGeometry(QtCore.QRect(-1, -10, 651, 450))
         self.image.setStyleSheet("background-color:#ccc;")
         self.image.setText("")
         self.image.setScaledContents(False)
@@ -133,6 +133,7 @@ class Ui_MainWindow(object):
 "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:20px;\">Press w,a,s,d  to move center your map</span></p>\n"
 "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:20px;\">Press PgUp and PgDn to zoom your map</span></p>\n"
 "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:20px;\">Move mouse wheel to zoom your map</span></p>\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:20px;\">If the map doesn\'t move or scale, defocus the spinBoxes(click on background)</span></p>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:20px;\">If the map doesn\'t move or scale,</span></p>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:20px;\"> defocus the spinBoxes(click on background)</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'MS Shell Dlg 2\';\"><br /></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Documentation"))
