@@ -14,22 +14,30 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(799, 714)
+        MainWindow.resize(800, 700)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
+        MainWindow.setSizePolicy(sizePolicy)
+        MainWindow.setMinimumSize(QtCore.QSize(800, 700))
+        MainWindow.setMaximumSize(QtCore.QSize(800, 700))
         MainWindow.setMouseTracking(False)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("img/maps_icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         MainWindow.setStyleSheet("font-size:20px;\n"
+"background-color:#ddd;\n"
 "")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.image = QtWidgets.QLabel(self.centralwidget)
-        self.image.setGeometry(QtCore.QRect(100, 10, 601, 451))
-        self.image.setStyleSheet("background-color:#ccc;")
-        self.image.setText("")
-        self.image.setObjectName("image")
-        self.formLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.formLayoutWidget.setGeometry(QtCore.QRect(0, 470, 801, 131))
+        self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
+        self.tabWidget.setGeometry(QtCore.QRect(0, 0, 821, 741))
+        self.tabWidget.setObjectName("tabWidget")
+        self.tab = QtWidgets.QWidget()
+        self.tab.setObjectName("tab")
+        self.formLayoutWidget = QtWidgets.QWidget(self.tab)
+        self.formLayoutWidget.setGeometry(QtCore.QRect(11, 490, 801, 131))
         self.formLayoutWidget.setObjectName("formLayoutWidget")
         self.formLayout = QtWidgets.QFormLayout(self.formLayoutWidget)
         self.formLayout.setLabelAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
@@ -40,9 +48,11 @@ class Ui_MainWindow(object):
         self.label_latitude.setObjectName("label_latitude")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_latitude)
         self.doubleSpinBox_latitude = QtWidgets.QDoubleSpinBox(self.formLayoutWidget)
+        self.doubleSpinBox_latitude.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.doubleSpinBox_latitude.setInputMethodHints(QtCore.Qt.ImhFormattedNumbersOnly|QtCore.Qt.ImhNoEditMenu)
         self.doubleSpinBox_latitude.setDecimals(5)
-        self.doubleSpinBox_latitude.setMinimum(-90.0)
-        self.doubleSpinBox_latitude.setMaximum(90.0)
+        self.doubleSpinBox_latitude.setMinimum(-85.0)
+        self.doubleSpinBox_latitude.setMaximum(85.0)
         self.doubleSpinBox_latitude.setSingleStep(0.1)
         self.doubleSpinBox_latitude.setObjectName("doubleSpinBox_latitude")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.doubleSpinBox_latitude)
@@ -50,9 +60,10 @@ class Ui_MainWindow(object):
         self.label_longitude.setObjectName("label_longitude")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_longitude)
         self.doubleSpinBox_longitude = QtWidgets.QDoubleSpinBox(self.formLayoutWidget)
+        self.doubleSpinBox_longitude.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.doubleSpinBox_longitude.setDecimals(5)
-        self.doubleSpinBox_longitude.setMinimum(-180.0)
-        self.doubleSpinBox_longitude.setMaximum(180.0)
+        self.doubleSpinBox_longitude.setMinimum(-179.9)
+        self.doubleSpinBox_longitude.setMaximum(179.9)
         self.doubleSpinBox_longitude.setSingleStep(0.1)
         self.doubleSpinBox_longitude.setObjectName("doubleSpinBox_longitude")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.doubleSpinBox_longitude)
@@ -60,20 +71,49 @@ class Ui_MainWindow(object):
         self.label_scale.setObjectName("label_scale")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_scale)
         self.doubleSpinBox_scale = QtWidgets.QDoubleSpinBox(self.formLayoutWidget)
+        self.doubleSpinBox_scale.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.doubleSpinBox_scale.setAcceptDrops(False)
         self.doubleSpinBox_scale.setDecimals(5)
+        self.doubleSpinBox_scale.setMinimum(0.0)
         self.doubleSpinBox_scale.setMaximum(90.0)
         self.doubleSpinBox_scale.setSingleStep(0.1)
         self.doubleSpinBox_scale.setObjectName("doubleSpinBox_scale")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.doubleSpinBox_scale)
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(290, 610, 231, 61))
-        self.pushButton.setObjectName("pushButton")
+        self.image = QtWidgets.QLabel(self.tab)
+        self.image.setGeometry(QtCore.QRect(111, -10, 601, 451))
+        self.image.setStyleSheet("background-color:#ccc;")
+        self.image.setText("")
+        self.image.setScaledContents(False)
+        self.image.setObjectName("image")
+        self.pushButton_backgrund = QtWidgets.QPushButton(self.tab)
+        self.pushButton_backgrund.setGeometry(QtCore.QRect(0, -50, 1011, 721))
+        self.pushButton_backgrund.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.pushButton_backgrund.setStyleSheet("QPushButton:hover {\n"
+"    background-color: #ddd;\n"
+"}\n"
+"QPushButton {\n"
+"    background-color: #ddd;\n"
+"}")
+        self.pushButton_backgrund.setText("")
+        self.pushButton_backgrund.setCheckable(False)
+        self.pushButton_backgrund.setObjectName("pushButton_backgrund")
+        self.pushButton_backgrund.raise_()
+        self.formLayoutWidget.raise_()
+        self.image.raise_()
+        self.tabWidget.addTab(self.tab, "")
+        self.tab_2 = QtWidgets.QWidget()
+        self.tab_2.setObjectName("tab_2")
+        self.textBrowser = QtWidgets.QTextBrowser(self.tab_2)
+        self.textBrowser.setGeometry(QtCore.QRect(0, -9, 841, 681))
+        self.textBrowser.setObjectName("textBrowser")
+        self.tabWidget.addTab(self.tab_2, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -82,4 +122,17 @@ class Ui_MainWindow(object):
         self.label_latitude.setText(_translate("MainWindow", "Latitude                  "))
         self.label_longitude.setText(_translate("MainWindow", "Longitude"))
         self.label_scale.setText(_translate("MainWindow", "Scale"))
-        self.pushButton.setText(_translate("MainWindow", "Create static map"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Main"))
+        self.textBrowser.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:20px; font-weight:400; font-style:normal;\">\n"
+"<h1 style=\" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:xx-large; font-weight:600;\">Documentation </span></h1>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'MS Shell Dlg 2\';\"><br /></p>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:20px;\">Input in the spinBoxes to set the latitude, longitude and scale</span></p>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:20px;\">Press w,a,s,d  to move center your map</span></p>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:20px;\">Press PgUp and PgDn to zoom your map</span></p>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:20px;\">Move mouse wheel to zoom your map</span></p>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:20px;\">If the map doesn\'t move or scale, defocus the spinBoxes(click on background)</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'MS Shell Dlg 2\';\"><br /></p></body></html>"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Documentation"))
