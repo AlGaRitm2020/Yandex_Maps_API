@@ -15,9 +15,34 @@ class Main(QMainWindow, Ui_MainWindow):
         # import design
         self.setupUi(self)
 
+        # default map type
+        self.map_type = 'sat'
+
         self.doubleSpinBox_latitude.valueChanged.connect(self.get_image)
         self.doubleSpinBox_longitude.valueChanged.connect(self.get_image)
         self.doubleSpinBox_scale.valueChanged.connect(self.get_image)
+        self.comboBox_type.currentIndexChanged.connect(self.change_map_type)
+
+    def change_map_type(self):
+        print(self.comboBox_type.currentIndex())
+        # scheme type
+        if self.comboBox_type.currentIndex() == 0:
+            self.map_type = "map"
+
+        # satellite type
+        elif self.comboBox_type.currentIndex() == 1:
+            self.map_type = "sat"
+            print('sat')
+
+
+        # hybrid type
+        elif self.comboBox_type.currentIndex() == 2:
+            self.map_type = 'sat,skl'
+
+        print(self.comboBox_type.currentIndex())
+
+        # create map
+        self.get_image()
 
     def get_image(self):
         # self.doubleSpinBox_scale.setFocus()
@@ -27,7 +52,10 @@ class Main(QMainWindow, Ui_MainWindow):
         self.doubleSpinBox_longitude.setSingleStep(self.doubleSpinBox_scale.value() / 10)
 
         map_request = f"http://static-maps.yandex.ru/1.x/?ll={self.doubleSpinBox_longitude.value()}," \
-                      f"{self.doubleSpinBox_latitude.value()}&spn={self.doubleSpinBox_scale.value()},{0.0001}&l=map&size=650,450"
+                      f"{self.doubleSpinBox_latitude.value()}&spn={self.doubleSpinBox_scale.value()}," \
+                      f"{self.doubleSpinBox_scale.value()}&l={self.map_type}&size=650,450"
+
+        #map_request = "https://static-maps.yandex.ru/1.x/?ll=37.620070,55.753630&spn=1,1&l=sat"
         # get response
         response = requests.get(map_request)
 
