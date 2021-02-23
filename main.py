@@ -24,7 +24,6 @@ class Main(QMainWindow, Ui_MainWindow):
         self.comboBox_type.currentIndexChanged.connect(self.change_map_type)
 
     def change_map_type(self):
-        print(self.comboBox_type.currentIndex())
         # scheme type
         if self.comboBox_type.currentIndex() == 0:
             self.map_type = "map"
@@ -32,14 +31,12 @@ class Main(QMainWindow, Ui_MainWindow):
         # satellite type
         elif self.comboBox_type.currentIndex() == 1:
             self.map_type = "sat"
-            print('sat')
 
 
         # hybrid type
         elif self.comboBox_type.currentIndex() == 2:
             self.map_type = 'sat,skl'
 
-        print(self.comboBox_type.currentIndex())
 
         # create map
         self.get_image()
